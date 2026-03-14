@@ -199,6 +199,29 @@ Preparing vote...
 <script>
 
 // ============================
+// LOADING TEXT ANIMATION
+// ============================
+
+const loadingMessages = [
+"Preparing vote...",
+"Reading vote counter...",
+"Fetching token data...",
+"Syncing Moonshot nodes...",
+"Finalizing listing vote..."
+];
+
+let i = 0;
+
+setInterval(()=>{
+const el = document.getElementById("loading-text");
+if(el){
+el.textContent = loadingMessages[i % loadingMessages.length];
+i++;
+}
+},1500);
+
+
+// ============================
 // GET CONTRACT FROM URL
 // ============================
 
@@ -220,28 +243,6 @@ return null;
 
 }
 
-
-<script>
-
-const loadingMessages = [
-"Preparing vote...",
-"Reading vote counter...",
-"Fetching token data...",
-"Syncing Moonshot nodes...",
-"Finalizing listing vote..."
-];
-
-let i = 0;
-
-setInterval(()=>{
-const el = document.getElementById("loading-text");
-if(el){
-el.textContent = loadingMessages[i % loadingMessages.length];
-i++;
-}
-},1500);
-
-</script>
 
 // ============================
 // LOAD TOKEN DATA
@@ -269,7 +270,7 @@ const pair = data.pairs[0];
 const token = pair.baseToken;
 
 
-// UPDATE NAME + SYMBOL
+// UPDATE NAME
 const title = document.querySelector("h1");
 
 title.innerHTML = `
@@ -280,7 +281,7 @@ ${token.name}
 `;
 
 
-// UPDATE TOKEN IMAGE
+// UPDATE IMAGE
 const img = document.querySelector(".ring-wrap img");
 
 if(pair.info && pair.info.imageUrl){
@@ -288,7 +289,7 @@ img.src = pair.info.imageUrl;
 }
 
 
-// UPDATE CONTRACT BUTTON
+// UPDATE CONTRACT
 const contractSpan = document.querySelector(".mt-5 button span");
 
 if(contractSpan){
@@ -312,7 +313,7 @@ contractSpan.textContent = short;
 }
 
 
-// OPTIONAL PRICE DISPLAY
+// OPTIONAL PRICE
 const desc = document.querySelector(".mt-3.text-white\\/80");
 
 if(pair.priceUsd){
@@ -327,7 +328,12 @@ desc.appendChild(price);
 
 }
 
+
+// PAGE TITLE
 document.title = token.name + " Vote | Moonshot";
+
+
+// SHOW SITE
 document.getElementById("loading-screen").style.display="none";
 document.getElementById("site-content").style.display="block";
 
