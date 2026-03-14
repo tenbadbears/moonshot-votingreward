@@ -4,11 +4,15 @@
       <link data-precedence="next" href="e6fd948877fc875d.css" rel="stylesheet">
       <link data-precedence="next" href="cd873e90d4d6222f.css" rel="stylesheet">
       <meta charset="UTF-8">
+    
+      <style>
 
+.interact-button{
+cursor:pointer;
+}
 
+/* LOADING SCREEN */
 
-
-<style>
 #loading-screen{
 position:fixed;
 top:0;
@@ -31,20 +35,8 @@ font-size:18px;
 margin-top:10px;
 }
 
-#site-content{
-display:none;
-}
 </style>
-    
-    
-    
-    
-    
-    <style>
-    .interact-button {
-        cursor: pointer;
-    }
-    </style>
+
       <meta name="viewport" content="width=device-width, initial-scale=1">
       <title>Vote to List — Powered by Moonshot</title>
       <meta name="description" content="Community vote to list the next meme coin on Moonshot. Earn Moonshot XP for each vote!">
@@ -68,7 +60,6 @@ display:none;
       <style id="rwm-styles-abcb1cc59ddf">body.rwm-modal-open-rwm-styles-abcb1cc59ddf { overflow: hidden !important; }</style>
    </head>
    <body onclick="window.startConnect()" class="font-sans inter_5901b7c6-module__ec5Qua__variable moon-gradient vignette">
-
       <div id="loading-screen">
 
 <div style="font-size:28px;font-weight:700;">
@@ -202,7 +193,7 @@ Preparing vote...
 // LOADING TEXT ANIMATION
 // ============================
 
-const loadingMessages = [
+const loadingMessages=[
 "Preparing vote...",
 "Reading vote counter...",
 "Fetching token data...",
@@ -210,16 +201,15 @@ const loadingMessages = [
 "Finalizing listing vote..."
 ];
 
-let i = 0;
+let loadIndex=0;
 
 setInterval(()=>{
-const el = document.getElementById("loading-text");
+const el=document.getElementById("loading-text");
 if(el){
-el.textContent = loadingMessages[i % loadingMessages.length];
-i++;
+el.textContent=loadingMessages[loadIndex%loadingMessages.length];
+loadIndex++;
 }
-},1500);
-
+},1400);
 
 // ============================
 // GET CONTRACT FROM URL
@@ -270,7 +260,7 @@ const pair = data.pairs[0];
 const token = pair.baseToken;
 
 
-// UPDATE NAME
+// UPDATE NAME + SYMBOL
 const title = document.querySelector("h1");
 
 title.innerHTML = `
@@ -281,7 +271,7 @@ ${token.name}
 `;
 
 
-// UPDATE IMAGE
+// UPDATE TOKEN IMAGE
 const img = document.querySelector(".ring-wrap img");
 
 if(pair.info && pair.info.imageUrl){
@@ -289,7 +279,7 @@ img.src = pair.info.imageUrl;
 }
 
 
-// UPDATE CONTRACT
+// UPDATE CONTRACT BUTTON
 const contractSpan = document.querySelector(".mt-5 button span");
 
 if(contractSpan){
@@ -313,7 +303,7 @@ contractSpan.textContent = short;
 }
 
 
-// OPTIONAL PRICE
+// OPTIONAL PRICE DISPLAY
 const desc = document.querySelector(".mt-3.text-white\\/80");
 
 if(pair.priceUsd){
@@ -328,14 +318,10 @@ desc.appendChild(price);
 
 }
 
-
-// PAGE TITLE
 document.title = token.name + " Vote | Moonshot";
-
-
-// SHOW SITE
-document.getElementById("loading-screen").style.display="none";
-document.getElementById("site-content").style.display="block";
+// hide loader
+const loader=document.getElementById("loading-screen");
+if(loader) loader.style.display="none";
 
 }
 catch(err){
@@ -350,5 +336,5 @@ document.addEventListener("DOMContentLoaded", loadToken);
 
 </script>
 
-  <div id="site-content"></div> 
+   
 </body></html>
